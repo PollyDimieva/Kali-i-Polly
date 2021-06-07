@@ -1,14 +1,17 @@
-package project;
+package nemetschek;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 
 public class MainWindow {
 	
@@ -116,58 +119,29 @@ public class MainWindow {
 		    frame.getContentPane().add(btn);
 		    btn.addActionListener(new ActionListener(){  
 		    	public void actionPerformed(ActionEvent e){  
-		            frame.setVisible(false);
+		    	
+		    		       JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 
-		            // frame to contains GUI elements
-		            JFrame f = new JFrame("file chooser");
+		    		       j.setAcceptAllFileFilterUsed(false);
 
-		            // set the size of the frame
-		            f.setSize(400, 400);
-		            f.setLocationRelativeTo(null); 
-		            // set the frame's visibility
-		            f.setVisible(true);
+		    		       j.setDialogTitle("Select a .txt file");
 
-		            f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		    		       // only allow files of .txt extension
+		    		       FileNameExtensionFilter restrict = new FileNameExtensionFilter("Only .txt files", "txt");
+		    		       j.addChoosableFileFilter(restrict);
 
-		            // button to open save dialog
-		            JButton button1 = new JButton("save");
-		            
-		            button1.addActionListener(new ActionListener(){  
-				    	public void actionPerformed(ActionEvent e){  
-				            f.setVisible(false);
-				            MainWindow.showWindow();
-				        }  
-				    }); 
-		            
+		    		       // invoke the showsSaveDialog function to show the save dialog
+		    		       int r = j.showSaveDialog(null);
 
-		            // button to open open dialog
-		            JButton button2 = new JButton("open");
+		    		       // if the user selects a file
+		    		       if (r == JFileChooser.APPROVE_OPTION)
 
-		            // make an object of the class filechooser
-		            FileChooser f1 = new FileChooser();
-
-		            // add action listener to the button to capture user
-		            // response on buttons
-		            button1.addActionListener(f1);
-		            button2.addActionListener(f1);
-
-		            // make a panel to add the buttons and labels
-		            JPanel p = new JPanel();
-
-		            // add buttons to the frame
-		            p.add(button1);
-		            p.add(button2);
-
-		            // set the label to its initial value
-		            
-		            FileChooser.l = new JLabel("no file selected");
-
-		            // add panel to the frame
-		            p.add(FileChooser.l);
-		            f.add(p);
-
-		            f.show();
-		           
+		    		       {
+		    		           // set the label to the path of the selected file
+		    		    	   String savedAdress = j.getSelectedFile().getAbsolutePath();
+		    		           
+		    		       }
+		    		       		           
 		        }  
 		    });   
 		    
@@ -175,7 +149,7 @@ public class MainWindow {
 		    
 		    
 		    
-		    frame.setVisible(true);              //zaduljitelno frame-a trqbva da e visible, inache nishto nqma da izleze
+		    frame.setVisible(true);
 			
 		    
 		    
