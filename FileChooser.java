@@ -64,7 +64,7 @@ public void actionPerformed(ActionEvent evt)
    // if the user presses the save button show the save dialog
    String com = evt.getActionCommand();
 
-   if (com.equals("save")) {
+   if (com.equals("open")) {
        // create an object of JFileChooser class
        JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 
@@ -86,35 +86,7 @@ public void actionPerformed(ActionEvent evt)
 
        {
            // set the label to the path of the selected file
-           l.setText(j.getSelectedFile().getAbsolutePath());
-       }
-       // if the user cancelled the operation
-       else
-           l.setText("the user cancelled the operation");
-   }
-   // if the user presses the open dialog show the open dialog
-
-   else {
-       // create an object of JFileChooser class
-       JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-
-       // resctrict the user to select files of all types
-       j.setAcceptAllFileFilterUsed(false);
-
-       // set a title for the dialog
-       j.setDialogTitle("Select a .txt file");
-
-       // only allow files of .txt extension
-       FileNameExtensionFilter restrict = new FileNameExtensionFilter("Only .txt files", "txt");
-       j.addChoosableFileFilter(restrict);
-
-       // invoke the showsOpenDialog function to show the save dialog
-       int r = j.showOpenDialog(null);
-
-       // if the user selects a file
-       if (r == JFileChooser.APPROVE_OPTION) {
-           // set the label to the path of the selected file
-      	 String savedAdress = j.getSelectedFile().getAbsolutePath();
+    	   String savedAdress = j.getSelectedFile().getAbsolutePath();
            l.setText(savedAdress);
            
        }
@@ -122,5 +94,37 @@ public void actionPerformed(ActionEvent evt)
        else
            l.setText("the user cancelled the operation");
    }
-}
-}
+
+}}
+   // if the user presses the open dialog show the open dialog
+
+//   else {
+//       // create an object of JFileChooser class
+//       JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+//
+//       // resctrict the user to select files of all types
+//       j.setAcceptAllFileFilterUsed(false);
+//
+//       // set a title for the dialog
+//       j.setDialogTitle("Select a .txt file");
+//
+//       // only allow files of .txt extension
+//       FileNameExtensionFilter restrict = new FileNameExtensionFilter("Only .txt files", "txt");
+//       j.addChoosableFileFilter(restrict);
+//
+//       // invoke the showsOpenDialog function to show the save dialog
+//       int r = j.showOpenDialog(null);
+//
+//       // if the user selects a file
+//       if (r == JFileChooser.APPROVE_OPTION) {
+//           // set the label to the path of the selected file
+//      	 String savedAdress = j.getSelectedFile().getAbsolutePath();
+//           l.setText(savedAdress);
+//           
+//       }
+//       // if the user cancelled the operation
+//       else
+//           l.setText("the user cancelled the operation");
+//   }
+//}
+//}

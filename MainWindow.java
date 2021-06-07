@@ -131,6 +131,14 @@ public class MainWindow {
 
 		            // button to open save dialog
 		            JButton button1 = new JButton("save");
+		            
+		            button1.addActionListener(new ActionListener(){  
+				    	public void actionPerformed(ActionEvent e){  
+				            f.setVisible(false);
+				            MainWindow.showWindow();
+				        }  
+				    }); 
+		            
 
 		            // button to open open dialog
 		            JButton button2 = new JButton("open");
