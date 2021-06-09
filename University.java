@@ -49,5 +49,11 @@ public class University  {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	
+	public String toString() {
+		return "Name: "+name+" Ranking Number: "+rankingNum+" Country "+country+" Cost "+cost;
+				
+	}
 
 }

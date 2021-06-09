@@ -20,6 +20,7 @@ import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
+import project2.Picture;
 import project.MergeSort;
 import project.ParkingSpace;
 
@@ -32,6 +33,47 @@ public class Main{
 	}
     
 	public static void showWindow() {
+		String text = "";
+		File file = new File("C:\\Users\\stdim\\eclipse-workspace\\Nemetschek\\src\\project2");
+		
+		University[] uni = new University[10];
+		for(int i=0; i<uni.length; i++) {
+			
+		
+        try {
+            Scanner myReader = new Scanner(file);
+        //    University[] uni = new University[10];
+                myReader.hasNextLine();
+                uni[i+1].setRankingNum(i);
+                
+                myReader.hasNextLine();
+                text += myReader.nextLine() + "\n";
+                uni[i].setName(text);
+                myReader.hasNextLine();
+                text += myReader.nextLine() + "\n";
+                
+                uni[i].setCountry(text);
+                myReader.hasNextLine();
+                text += myReader.nextLine() + "\n";
+                uni[i].setCost(Integer.parseInt(text));
+                
+              
+            
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            try {
+                file.createNewFile();
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+		
+        }
+        System.out.println(uni.toString());
+	}
+		
+		
+		
 		JFrame frame = new JFrame("University Ranking");  
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);            
 	    frame.setSize(850,600);                        
@@ -40,34 +82,34 @@ public class Main{
 	    frame.setLocationRelativeTo(null);             
 	    
 	    JLabel lbl = new JLabel("Name: ");
-	    lbl.setBounds(250, 50, 150, 20);
+	    lbl.setBounds(320, 120, 150, 20);
 	    frame.getContentPane().add(lbl);
 	    
 
 	    JLabel lbl2 = new JLabel("Ranking number: ");
-	    lbl2.setBounds(250, 100, 150, 20);
+	    lbl2.setBounds(320, 170, 150, 20);
 	    frame.getContentPane().add(lbl2);
 	    
 	    JLabel label = new JLabel("Country: ");
-	    label.setBounds(250, 150, 150, 20);
+	    label.setBounds(320, 220, 150, 20);
 	    frame.getContentPane().add(label);
 	    
 	    JLabel label2 = new JLabel("Cost: ");
-	    label2.setBounds(250, 200, 150, 20);
+	    label2.setBounds(320, 270, 150, 20);
 	    frame.getContentPane().add(label2);
 	    
 	    
 	    JLabel label3 = new JLabel("Personal opinion: ");
-	    label3.setBounds(250, 250, 150, 20);
+	    label3.setBounds(320, 320, 150, 20);
 	    frame.getContentPane().add(label3);
 	    
 	    JTextArea opinionTxt = new JTextArea();
-	    opinionTxt.setBounds(360, 250, 200, 50);
+	    opinionTxt.setBounds(310, 350, 230, 50);
 	    opinionTxt.setLineWrap(true);
 	    frame.getContentPane().add(opinionTxt);
 	    
 	    JLabel opinion = new JLabel();
-	    opinion.setBounds(330, 200, 250, 20);
+	    opinion.setBounds(330, 270, 250, 20);
 	    frame.getContentPane().add(opinion);
 	    
 	    JButton prevBtn = new JButton("Previous");  
@@ -108,7 +150,7 @@ public class Main{
 	    }); 
 		
 	    JButton numSort = new JButton("Sort by ranking number");
-	    numSort.setBounds(350, 350, 170, 40);
+	    numSort.setBounds(340, 430, 170, 40);
 	  //  Color colorBtn1 = new Color(255,70,70);
 	    numSort.setBackground(Color.pink);
 	    numSort.setForeground(colorBtn1);             
@@ -119,7 +161,7 @@ public class Main{
 	    		}});
 	    
 	    JButton unSort = new JButton("Sort by country");  
-	    unSort.setBounds(150, 350, 140, 40);  
+	    unSort.setBounds(150, 430, 140, 40);  
 	    unSort.setBackground(Color.pink);
 	    unSort.setForeground(colorBtn1);
 	    frame.getContentPane().add(unSort);
@@ -130,7 +172,7 @@ public class Main{
 	    });
 	    
 	    JButton areaSort = new JButton("Sort by costs");  
-	    areaSort.setBounds(570, 350, 140, 40);  
+	    areaSort.setBounds(570, 430, 140, 40);  
 	    areaSort.setBackground(Color.pink);
 	    areaSort.setForeground(colorBtn1);
 	    frame.getContentPane().add(areaSort);
@@ -170,7 +212,8 @@ public class Main{
 		
 		
 		
-		
+	    Picture pic = new Picture("University ranking.png",0,0,850,600,frame);  //chrez suzdadeniq ot men klas Picture 
+	    pic.addImage();                                                 
 		
 		
 	    frame.setVisible(true);
