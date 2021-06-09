@@ -1,0 +1,49 @@
+1
+Massachusetts Institute of Technology
+USA
+$55,450
+2
+University of Oxford
+UK
+£9,250
+3
+Stanford University
+USA
+$55,473
+4
+University of Cambridge
+UK
+£9,250 
+5
+Harvard University
+USA
+40,720
+6
+California Institute of Technology
+USA
+43,060
+7
+Imperial College London
+UK
+10,430
+8
+ETH Zurich - Swiss Federal Institute of Technology
+Switzerland
+158,870
+9
+UCL
+UK
+10,430
+10
+University of Chicago
+USA
+47,290
+
+
+
+
+
+
+
+
+
