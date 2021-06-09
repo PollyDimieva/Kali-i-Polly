@@ -44,17 +44,17 @@ public class Main{
             Scanner myReader = new Scanner(file);
         //    University[] uni = new University[10];
                 myReader.hasNextLine();
-                uni[i+1].setRankingNum(i);
+                uni[i].setRankingNum(i+1);
                 
                 myReader.hasNextLine();
-                text += myReader.nextLine() + "\n";
+                text = myReader.nextLine() + "\n";
                 uni[i].setName(text);
                 myReader.hasNextLine();
-                text += myReader.nextLine() + "\n";
+                text = myReader.nextLine() + "\n";
                 
                 uni[i].setCountry(text);
                 myReader.hasNextLine();
-                text += myReader.nextLine() + "\n";
+                text = myReader.nextLine() + "\n";
                 uni[i].setCost(Integer.parseInt(text));
                 
               
