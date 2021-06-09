@@ -1,6 +1,6 @@
 package project;
 
-public class ParkingSpace {
+public class ParkingSpace  {
  
 	private int number;
 	private int area;
@@ -41,9 +41,7 @@ public class ParkingSpace {
 		this.description = description;
 	}
 	
-	public String toString() {
-		return "Username: "+userName+" Number: "+number+" Area: "+area+" Description: "+description;
-				
-	}
-  
+//    public String to(){
+//    	return 
+//    }
 }

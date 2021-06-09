@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -28,151 +29,395 @@ public class MainWindow {
 	}
     
 	public static void showWindow() {
+		int N = 7;
+		ParkingSpace[] list = new ParkingSpace[N];
+		
+		for(int i=0; i<N; i++) {
+			list[i] = new ParkingSpace();
+			list[i].setNumber(i+1);
+			if(i%3==0) {
+				list[i].setArea(16);
+			}else if(i%3==1) {
+				list[i].setArea(15);
+			}else {
+				list[i].setArea(17);
+			}
+			list[i].setDescription("");
+			list[i].setUserName("");
+		}
+	     AreaComparator ac = new AreaComparator();
+	     UserNameComparator unc = new UserNameComparator();
+	     NumberComparator nc = new NumberComparator();
+			
+			for (int i = 0; i < list.length; i++)
+				System.out.print(list[i] + " ");
+	
 		
 		JFrame frame = new JFrame("Parking spaces");  
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);            
-	    frame.setSize(800,600);                        
+	    frame.setSize(850,600);                        
 	    frame.getContentPane().setLayout(null);       
 	                                                   
 	    frame.setLocationRelativeTo(null);             
 	    
-	    JLabel lbl = new JLabel("Parking space No. ");
-	    lbl.setBounds(100, 50, 150, 20);
 	    
+	    
+	    JLabel psnlbl = new JLabel("Parking space No. ");
+	    psnlbl.setBounds(250, 50, 150, 20);
+	    frame.getContentPane().add(psnlbl);
+	    
+	    JLabel number = new JLabel();
+	    number.setBounds(360, 50, 150, 20);
+	    number.setText(""+list[0].getNumber());
+	    frame.getContentPane().add(number);
+	    
+	    
+	    
+	    JLabel psalbl = new JLabel("Area:  ");
+	    psalbl.setBounds(250, 100, 150, 20);
+	    frame.getContentPane().add(psalbl);
+	    
+	    JLabel area = new JLabel();
+	    area.setBounds(290, 100, 150, 20);
+	    area.setText(""+list[0].getArea());
+	    frame.getContentPane().add(area);
+	    
+	    JLabel psunlbl = new JLabel("Username: ");
+	    psunlbl.setBounds(250, 150, 150, 20);
+	    frame.getContentPane().add(psunlbl);
+	    
+	    JTextArea untxt = new JTextArea();
+	    untxt.setBounds(320, 150, 200, 20);
+	    frame.getContentPane().add(untxt);
+	    
+	    JLabel userName = new JLabel();
+	    userName.setBounds(330, 150, 250, 20);
+	    frame.getContentPane().add(userName);
+	    
+	    JLabel psdlbl = new JLabel("Description: ");
+	    psdlbl.setBounds(250, 200, 150, 20);
+	    frame.getContentPane().add(psdlbl);
+	    
+	    JTextArea descrTxt = new JTextArea();
+	    descrTxt.setBounds(320, 200, 200, 100);
+	    descrTxt.setLineWrap(true);
+	    frame.getContentPane().add(descrTxt);
+	    
+	    JLabel description = new JLabel();
+	    description.setBounds(330, 200, 250, 20);
+	    frame.getContentPane().add(description);
+	    
+	    JLabel lbl = new JLabel("Insert number of parking space:  ");
+	    lbl.setBounds(300, 410, 250, 20);
 	    frame.getContentPane().add(lbl);
 	    
+	    JTextArea searchTxt = new JTextArea();
+	    searchTxt.setBounds(485, 410, 45, 20);
+	    frame.getContentPane().add(searchTxt);
 	    
 	    
-	    JLabel lbl2 = new JLabel("Area:  ");
-	    lbl2.setBounds(100, 100, 150, 20);
-	    frame.getContentPane().add(lbl2);
-	    
-	    JLabel label = new JLabel("Username: ");
-	    label.setBounds(100, 150, 150, 20);
-	    frame.getContentPane().add(label);
-	    
-	    JTextArea txt = new JTextArea();
-	    txt.setBounds(200, 150, 250, 20);
-	    frame.getContentPane().add(txt);
-	    
-	    JLabel label1 = new JLabel("Description: ");
-	    label1.setBounds(100, 200, 150, 20);
-	    frame.getContentPane().add(label1);
-	    
-	    JTextArea txt1 = new JTextArea();
-	    txt1.setBounds(200, 200, 250, 100);
-	    txt1.setLineWrap(true);
-	    frame.getContentPane().add(txt1);
-	    
-	    JLabel lbl3 = new JLabel("Insert number of parking space:  ");
-	    lbl3.setBounds(300, 370, 250, 20);
-	    frame.getContentPane().add(lbl3);
-	    
-	    JTextArea txt2 = new JTextArea();
-	    txt2.setBounds(485, 370, 45, 20);
-	    frame.getContentPane().add(txt2);
-	    
-	    JButton button = new JButton("Previous");  
-	    button.setBounds(100, 450, 110, 40);
+	    JButton prevBtn = new JButton("Previous");  
+	    prevBtn.setBounds(100, 50, 110, 40);
 	    Color lightYellow = new Color(255,255,204);    
-	    button.setBackground(lightYellow);      
+	    prevBtn.setBackground(lightYellow);      
 	    Color colorBtn = new Color(255,102,102);
-	    button.setForeground(colorBtn);        
-	    frame.getContentPane().add(button);
-	    button.addActionListener(new ActionListener(){        
+	    prevBtn.setForeground(colorBtn);        
+	    frame.getContentPane().add(prevBtn);
+	    prevBtn.addActionListener(new ActionListener(){        
 	    	public void actionPerformed(ActionEvent e){  
-	            frame.setVisible(false);                           
-	          
+	    		ParkingSpace ps = new ParkingSpace();
+	    		for(int i=0;i<N;i++) {
+	    			if(list[i].getNumber()==Integer.parseInt(number.getText())) {
+	    				if(i>0) {
+	    				ps=list[i-1];
+	    				}else {
+	    					JOptionPane.showMessageDialog(frame, "This is the first parking space");
+	    				}
+	    			}
+	    		}
+	    		number.setText(""+ps.getNumber());
+	    		area.setText(""+ ps.getArea());
+	    		if(ps.getUserName().equals("")) {
+	    			userName.setVisible(false);
+	    			untxt.setVisible(true);
+	    		}else {
+	    			untxt.setVisible(false);
+	    			userName.setText(ps.getUserName());
+	    			userName.setVisible(true);
+	    		}
+	    		if(ps.getDescription().equals("")) {
+	    			description.setVisible(false);
+	    			descrTxt.setVisible(true);
+	    		}else {
+	    			descrTxt.setVisible(false);
+	    			description.setText(ps.getDescription());
+	    			description.setVisible(true);
+	    		}
 	        }  
 	    }); 
 	    
-	    JButton watchingButton = new JButton("Next");
-	    watchingButton.setBounds(600,450,110, 40);
-	    watchingButton.setBackground(lightYellow);            
-	    watchingButton.setForeground(colorBtn);
-	    frame.getContentPane().add(watchingButton);
-	    watchingButton.addActionListener(new ActionListener(){  
+	    JButton nextBtn = new JButton("Next");
+	    nextBtn.setBounds(600,50,110, 40);
+	    nextBtn.setBackground(lightYellow);            
+	    nextBtn.setForeground(colorBtn);
+	    frame.getContentPane().add(nextBtn);
+	    nextBtn.addActionListener(new ActionListener(){  
 	    	public void actionPerformed(ActionEvent e){  
-	            frame.setVisible(false);
-	        
+	    		ParkingSpace ps = new ParkingSpace();
+	    		for(int i=0;i<N;i++) {
+	    			if(list[i].getNumber()==Integer.parseInt(number.getText())) {
+	    				if(i<N-1) {
+	    				ps=list[i+1];
+	    				}else {
+	    					JOptionPane.showMessageDialog(frame, "This is the last parking space");
+	    				}
+	    			}
+	    		}
+	    		number.setText(""+ps.getNumber());
+	    		area.setText(""+ ps.getArea());
+	    		if(ps.getUserName().equals("")) {
+	    			userName.setVisible(false);
+	    			untxt.setVisible(true);
+	    		}else {
+	    			untxt.setVisible(false);
+	    			userName.setText(ps.getUserName());
+	    			userName.setVisible(true);
+	    		}
+	    		if(ps.getDescription().equals("")) {
+	    			description.setVisible(false);
+	    			descrTxt.setVisible(true);
+	    		}else {
+	    			descrTxt.setVisible(false);
+	    			description.setText(ps.getDescription());
+	    			description.setVisible(true);
+	    		}
 	        }  
 	    }); 
 	    
 	   
-	    JButton smthUnusualButton = new JButton("Save changes");
-	    smthUnusualButton.setBounds(300, 450, 230, 40);
+	    JButton saveBtn = new JButton("Save changes");
+	    saveBtn.setBounds(260, 500, 120, 40);
 	    Color colorBtn1 = new Color(255,70,70);
-	    smthUnusualButton.setBackground(colorBtn1);
-	    smthUnusualButton.setForeground(Color.PINK);            
-	    frame.getContentPane().add(smthUnusualButton);
-	    smthUnusualButton.addActionListener(new ActionListener(){  
+	    saveBtn.setBackground(colorBtn1);
+	    saveBtn.setForeground(Color.PINK);            
+	    frame.getContentPane().add(saveBtn);
+	    saveBtn.addActionListener(new ActionListener(){  
 	    	public void actionPerformed(ActionEvent e){  
-	            frame.setVisible(false);
-	         
+	    		if(untxt.getText().trim().length() != 0) {
+	    			ParkingSpace ps = new ParkingSpace();
+		    		for(int i=0;i<N;i++) {
+		    			if(list[i].getNumber()==Integer.parseInt(number.getText())) {
+		    				ps=list[i];
+		    				ps.setUserName(untxt.getText());
+		    			}
+		    		}
+		    		
+		    	    userName.setText(ps.getUserName());
+		    	    userName.setVisible(true);
+		    	    untxt.selectAll();
+		    	    untxt.replaceSelection("");
+		    	    untxt.setVisible(false);
+//		    		number.setText(""+ps.getNumber());
+//		    		area.setText(""+ ps.getArea());
+	    		}
+	    		if(descrTxt.getText().trim().length() != 0) {
+	    			ParkingSpace ps = new ParkingSpace();
+		    		for(int i=0;i<N;i++) {
+		    			if(list[i].getNumber()==Integer.parseInt(number.getText())) {
+		    				ps=list[i];
+		    				ps.setDescription(descrTxt.getText());
+		    				
+		    			}
+		    		}
+		    		
+		    	    description.setText(ps.getDescription());
+		    	    description.setVisible(true);
+		    	    descrTxt.selectAll();
+		    	    descrTxt.replaceSelection("");
+		    	    descrTxt.setVisible(false);
+	    		}
 	        }  
 	    }); 
 	    
-	    JButton button1 = new JButton("Search");  
-	    button1.setBounds(360, 400, 110, 40);
-	   // Color lightYellow = new Color(255,255,204);    
-	   // button1.setBackground(lightYellow);      
-	  //  Color colorBtn = new Color(255,102,102);
-	  //  button1.setForeground(colorBtn);         
-	    JButton btn = new JButton("Choose file");
-	    btn.setBounds(300, 320, 230, 40);
+	    JButton searchBtn = new JButton("Search");  
+	    searchBtn.setBounds(360, 440, 110, 40);
+	    searchBtn.setBackground(lightYellow);      
+	    searchBtn.setForeground(colorBtn);  
+	    searchBtn.addActionListener(new ActionListener(){  
+	    	public void actionPerformed(ActionEvent e){ 
+	    		int wantedPS = Integer.parseInt(searchTxt.getText());
+	    		boolean validPS=true;
+	    		ParkingSpace ps = new ParkingSpace();
+	    		for(int i=0;i<N;i++) {
+	    			if(list[i].getNumber()==wantedPS) {
+	    				searchTxt.selectAll();
+			    	    searchTxt.replaceSelection("");
+	    				ps=list[i];
+	    				number.setText(""+ps.getNumber());
+	    	    		area.setText(""+ ps.getArea());
+	    	    		if(ps.getUserName().equals("")) {
+	    	    			userName.setVisible(false);
+	    	    			untxt.setVisible(true);
+	    	    		}else {
+	    	    			untxt.setVisible(false);
+	    	    			userName.setText(ps.getUserName());
+	    	    			userName.setVisible(true);
+	    	    		}
+	    	    		if(ps.getDescription().equals("")) {
+	    	    			description.setVisible(false);
+	    	    			descrTxt.setVisible(true);
+	    	    		}else {
+	    	    			descrTxt.setVisible(false);
+	    	    			description.setVisible(true);
+	    	    			description.setText(ps.getDescription());
+	    	    		}
+	    	    		validPS=true;
+	    	    		break;
+	    				}else {
+	    					validPS=false;
+	    			}
+	    		}
+	    		if(!validPS) {
+					JOptionPane.showMessageDialog(frame, "This is no such parking space");
+	    		}
+	    }});
+	    frame.getContentPane().add(searchBtn);
+
+	    JButton numSort = new JButton("Sort by number");
+	    numSort.setBounds(350, 350, 140, 40);
 	  //  Color colorBtn1 = new Color(255,70,70);
-	  //  smthUnusualButton.setBackground(colorBtn1);
-	    btn.setForeground(Color.PINK);             //i otnovo za posledniq ni buton 
-	    frame.getContentPane().add(btn);
-	    btn.addActionListener(new ActionListener(){  
+	    numSort.setBackground(Color.pink);
+	    numSort.setForeground(colorBtn1);             
+	    frame.getContentPane().add(numSort);
+	    numSort.addActionListener(new ActionListener(){  
 	    	public void actionPerformed(ActionEvent e){  
-	    	           String savedAdress ="";
-	    		       JFileChooser j = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-
-	    		       j.setAcceptAllFileFilterUsed(false);
-
-	    		       j.setDialogTitle("Select a .txt file");
-
-	    		       // only allow files of .txt extension
-	    		       FileNameExtensionFilter restrict = new FileNameExtensionFilter("Only .txt files", "txt");
-	    		       j.addChoosableFileFilter(restrict);
-
-	    		       // invoke the showsSaveDialog function to show the save dialog
-	    		       int r = j.showSaveDialog(null);
-
-	    		       // if the user selects a file
-	    		       if (r == JFileChooser.APPROVE_OPTION)
-
-	    		       {
-	    		           // set the label to the path of the selected file
-	    		    	    savedAdress = j.getSelectedFile().getAbsolutePath();
-	    		           
-	    		       }
-	    		       File file = new File(savedAdress);
-	    		       String text = "";
-	    		        try {
-	    		            Scanner myReader = new Scanner(file);
-	    		               
-	    		                text = myReader.nextLine();
-	    		                lbl.setText(lbl.getText()+text);
-	    		                text = myReader.nextLine();
-	    		            	lbl2.setText(lbl2.getText()+text);
-	    		                
-	    		           
-	    		            myReader.close();
-	    		        } catch (FileNotFoundException e1) {
-	    		            try {
-	    		                file.createNewFile();
-	    		            } catch (IOException e2) {
-	    		                // TODO Auto-generated catch block
-	    		                e2.printStackTrace();
-	    		            }
-	    		      
-	  
-	    		        } }});   
+	    	    MergeSort.mergeSort(list, nc);
+				number.setText(""+list[0].getNumber());
+			    area.setText(""+list[0].getArea());
+			    if(list[0].getUserName().equals("")) {
+	    			userName.setVisible(false);
+	    			untxt.setVisible(true);
+	    		}else {
+	    			untxt.setVisible(false);
+	    			userName.setText(list[0].getUserName());
+	    			userName.setVisible(true);
+	    		}
+	    		if(list[0].getDescription().equals("")) {
+	    			description.setVisible(false);
+	    			descrTxt.setVisible(true);
+	    		}else {
+	    			descrTxt.setVisible(false);
+	    			description.setVisible(true);
+	    			description.setText(list[0].getDescription());
+	    		}
+	    		}});
 	    
-	    		    
+	    JButton unSort = new JButton("Sort by user name");  
+	    unSort.setBounds(100, 350, 140, 40);  
+	    unSort.setBackground(Color.pink);
+	    unSort.setForeground(colorBtn1);
+	    frame.getContentPane().add(unSort);
+	    unSort.addActionListener(new ActionListener(){        
+	    	public void actionPerformed(ActionEvent e){
+	    		MergeSort.mergeSort(list, unc);
+				number.setText(""+list[0].getNumber());
+			    area.setText(""+list[0].getArea());
+			    if(list[0].getUserName().equals("")) {
+	    			userName.setVisible(false);
+	    			untxt.setVisible(true);
+	    		}else {
+	    			untxt.setVisible(false);
+	    			userName.setText(list[0].getUserName());
+	    			userName.setVisible(true);
+	    		}
+	    		if(list[0].getDescription().equals("")) {
+	    			description.setVisible(false);
+	    			descrTxt.setVisible(true);
+	    		}else {
+	    			descrTxt.setVisible(false);
+	    			description.setVisible(true);
+	    			description.setText(list[0].getDescription());
+	    		}
+	    	}
+	    });
 	    
+	    JButton areaSort = new JButton("Sort by area");  
+	    areaSort.setBounds(570, 350, 140, 40);  
+	    areaSort.setBackground(Color.pink);
+	    areaSort.setForeground(colorBtn1);
+	    frame.getContentPane().add(areaSort);
+	    areaSort.addActionListener(new ActionListener(){        
+	    	public void actionPerformed(ActionEvent e){
+				MergeSort.mergeSort(list, ac);
+				number.setText(""+list[0].getNumber());
+			    area.setText(""+list[0].getArea());
+			    if(list[0].getUserName().equals("")) {
+	    			userName.setVisible(false);
+	    			untxt.setVisible(true);
+	    		}else {
+	    			untxt.setVisible(false);
+	    			userName.setText(list[0].getUserName());
+	    			userName.setVisible(true);
+	    		}
+	    		if(list[0].getDescription().equals("")) {
+	    			description.setVisible(false);
+	    			descrTxt.setVisible(true);
+	    		}else {
+	    			descrTxt.setVisible(false);
+	    			description.setVisible(true);
+	    			description.setText(list[0].getDescription());
+	    		}
+	    	}
+	    });
+	    
+	    JButton change = new JButton("Change");  
+	    change.setBounds(450, 500, 120, 40); 
+	    change.setBackground(colorBtn1);
+	    change.setForeground(Color.PINK); 
+	    frame.getContentPane().add(change);
+	    change.addActionListener(new ActionListener(){        
+	    	public void actionPerformed(ActionEvent e){
+	    		ParkingSpace ps = new ParkingSpace();
+	    		for(int i=0;i<N;i++) {
+	    			if(list[i].getNumber()==Integer.parseInt(number.getText())) {
+	    				ps=list[i];
+	    				number.setText(""+ps.getNumber());
+			    		area.setText(""+ ps.getArea());
+			    		ps.setUserName("");
+			    		ps.setDescription("");
+			    		description.setVisible(false);
+			    		userName.setVisible(false);
+			    		descrTxt.setVisible(true);
+			    		untxt.setVisible(true);
+//			    		if(ps.getUserName().equals("")) {
+//			    			
+//	    	    			userName.setVisible(false);
+//	    	    			untxt.setVisible(true);
+//	    	    		}else {
+//	    	    			untxt.setVisible(false);
+//	    	    			userName.setText(ps.getUserName());
+//	    	    			userName.setVisible(true);
+//	    	    		}
+//	    	    		if(ps.getDescription().equals("")) {
+//	    	    			description.setVisible(false);
+//	    	    			descrTxt.setVisible(true);
+//	    	    		}else {
+//	    	    			descrTxt.setVisible(false);
+//	    	    			description.setVisible(true);
+//	    	    			description.setText(ps.getDescription());
+//	    	    		}
+	    			}
+	    		}
+	    	}
+	    });
+	    
+//	    if(list[0].getUserName()!="") {
+//	    	untxt.setVisible(false);
+//	    	JLabel userName = new JLabel();
+//		    userName.setBounds(220, 150, 150, 20);
+//		    userName.setText(list[0].getUserName());
+//		    frame.getContentPane().add(userName);
+//	    }
 	    
 	    
 	    frame.setVisible(true);
@@ -182,4 +427,3 @@ public class MainWindow {
 	
 	}	        
 }
-	
