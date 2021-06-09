@@ -34,28 +34,32 @@ public class Main{
     
 	public static void showWindow() {
 		String text = "";
-		File file = new File("C:\\Users\\stdim\\eclipse-workspace\\Nemetschek\\src\\project2");
 		
+		File file = new File("C:\\Users\\stdim\\eclipse-workspace\\Nemetschek\\src\\project2\\ranklist.txt");
+	Scanner myReader;
 		University[] uni = new University[10];
-		for(int i=0; i<uni.length; i++) {
-			
 		
+		for(int i=0; i<uni.length; i++) {
+			uni[i]=new University();
+			
         try {
-            Scanner myReader = new Scanner(file);
-        //    University[] uni = new University[10];
-                myReader.hasNextLine();
+               myReader = new Scanner(file);
+           
                 uni[i].setRankingNum(i+1);
                 
-                myReader.hasNextLine();
-                text = myReader.nextLine() + "\n";
+                text = myReader.nextLine();
+                text = myReader.nextLine();
+                
                 uni[i].setName(text);
-                myReader.hasNextLine();
-                text = myReader.nextLine() + "\n";
+                
+                text = myReader.nextLine() ;
                 
                 uni[i].setCountry(text);
-                myReader.hasNextLine();
-                text = myReader.nextLine() + "\n";
-                uni[i].setCost(Integer.parseInt(text));
+                
+                text = myReader.nextLine() ;
+                
+                
+      //          uni[i].setCost(Integer.parseInt(text));
                 
               
             
@@ -69,7 +73,7 @@ public class Main{
             }
 		
         }
-        System.out.println(uni.toString());
+        System.out.println(uni[i].toString());
 	}
 		
 		
@@ -194,14 +198,6 @@ public class Main{
 	    	}
 	    });
 	    
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		
