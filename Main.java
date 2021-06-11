@@ -1,4 +1,4 @@
-package project2;
+package project2; 
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -20,7 +20,7 @@ import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
-import project2.Picture;
+//import project2.Picture;
 import project.MergeSort;
 import project.ParkingSpace;
 
@@ -33,49 +33,11 @@ public class Main{
 	}
     
 	public static void showWindow() {
+		
+		int count=0;
 		String text = "";
-		
-		File file = new File("C:\\Users\\stdim\\eclipse-workspace\\Nemetschek\\src\\project2\\ranklist.txt");
-	Scanner myReader;
+		File file = new File("ranklist.txt");
 		University[] uni = new University[10];
-		
-		for(int i=0; i<uni.length; i++) {
-			uni[i]=new University();
-			
-        try {
-               myReader = new Scanner(file);
-           
-                uni[i].setRankingNum(i+1);
-                
-                text = myReader.nextLine();
-                text = myReader.nextLine();
-                
-                uni[i].setName(text);
-                
-                text = myReader.nextLine() ;
-                
-                uni[i].setCountry(text);
-                
-                text = myReader.nextLine() ;
-                
-                
-      //          uni[i].setCost(Integer.parseInt(text));
-                
-              
-            
-            myReader.close();
-        } catch (FileNotFoundException e) {
-            try {
-                file.createNewFile();
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
-		
-        }
-        System.out.println(uni[i].toString());
-	}
-		
 		
 		
 		JFrame frame = new JFrame("University Ranking");  
@@ -85,6 +47,129 @@ public class Main{
 	                                                   
 	    frame.setLocationRelativeTo(null);             
 	    
+		 JLabel name = new JLabel("");
+		    name.setBounds(360,120,150,20);
+		    frame.getContentPane().add(name);
+		    
+		    JLabel rankNum = new JLabel("");
+		    rankNum.setBounds(420,170,150,20);
+		    frame.getContentPane().add(rankNum);
+		    
+		    JLabel country = new JLabel("");
+		    country.setBounds(380,220,150,20);
+		    frame.getContentPane().add(country);
+		    
+		    JLabel cost = new JLabel("");
+		    cost.setBounds(360,270,150,20);
+		    frame.getContentPane().add(cost);
+		    
+//		for(int i=0; i<40;i++){
+//			myReader.nextLine();
+//			count++;
+//			if(count%4 == 0){
+//				uni[i].setCost();
+//			}else if(count%4 == 1){
+//				uni[i].setRankingNum();
+//			}else if(count%4== 2){
+//				uni[i].setName();
+//				
+//			}else{
+//				uni[i].setCountry();
+//			}
+//		}
+//		
+		
+		for(int i=0; i<40;i++){
+		 try {
+	    	    Scanner myReader= new Scanner(file);
+	    	    myReader.nextLine();
+	    	    count++;
+	    	    
+	    	    for(int j=0; j<uni.length; j++) {
+	    			uni[i]=new University();
+	           
+	                uni[i].setRankingNum(i+1);
+	                
+	                text = myReader.nextLine();
+	                text = myReader.nextLine();
+	                
+	                uni[i].setName(text);
+	                
+	                text = myReader.nextLine() ;
+	                
+	                uni[i].setCountry(text);
+	                
+	                text = myReader.nextLine() ;
+	                
+	                name.setText(uni[i].getName());
+	                rankNum.setText("" +uni[i].getRankingNum());
+	                country.setText(uni[i].getCountry());
+	                
+	      //          uni[i].setCost(Integer.parseInt(text));
+	                
+	                System.out.println(uni[i].toString());
+	    	    }
+//	            myReader.close();
+	        } catch (FileNotFoundException e) {
+	            try {
+	                file.createNewFile();
+	            } catch (IOException e1) {
+	                // TODO Auto-generated catch block
+	                e1.printStackTrace();
+	            }
+			
+	        }
+		}
+		
+		
+	   
+		
+		
+//		String text = "";
+		
+		
+		//University[] uni = new University[10];
+		
+		
+//			
+//        try {
+//    	    Scanner myReader= new Scanner(file);
+//    	    for(int i=0; i<uni.length; i++) {
+//    			uni[i]=new University();
+//           
+//                uni[i].setRankingNum(i+1);
+//                
+//                text = myReader.nextLine();
+//                text = myReader.nextLine();
+//                
+//                uni[i].setName(text);
+//                
+//                text = myReader.nextLine() ;
+//                
+//                uni[i].setCountry(text);
+//                
+//                text = myReader.nextLine() ;
+//                
+//                name.setText(uni[i].getName());
+//                rankNum.setText("" +uni[i].getRankingNum());
+//                country.setText(uni[i].getCountry());
+//                
+//      //          uni[i].setCost(Integer.parseInt(text));
+//                
+//                System.out.println(uni[i].toString());
+//    	    }
+////            myReader.close();
+//        } catch (FileNotFoundException e) {
+//            try {
+//                file.createNewFile();
+//            } catch (IOException e1) {
+//                // TODO Auto-generated catch block
+//                e1.printStackTrace();
+//            }
+//		
+//        }
+       
+
 	    JLabel lbl = new JLabel("Name: ");
 	    lbl.setBounds(320, 120, 150, 20);
 	    frame.getContentPane().add(lbl);
@@ -208,8 +293,8 @@ public class Main{
 		
 		
 		
-	    Picture pic = new Picture("University ranking.png",0,0,850,600,frame);  //chrez suzdadeniq ot men klas Picture 
-	    pic.addImage();                                                 
+	 //   Picture pic = new Picture("University ranking.png",0,0,850,600,frame);  //chrez suzdadeniq ot men klas Picture 
+	  //  pic.addImage();                                                 
 		
 		
 	    frame.setVisible(true);
