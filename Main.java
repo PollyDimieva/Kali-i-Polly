@@ -1,4 +1,4 @@
-package project2; 
+package project2;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -20,9 +20,11 @@ import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
+import project2.Picture;
+
 //import project2.Picture;
-import project.MergeSort;
-import project.ParkingSpace;
+//import project.MergeSort;
+//import project.ParkingSpace;
 
 public class Main{
 	
@@ -36,8 +38,43 @@ public class Main{
 		
 		int count=0;
 		String text = "";
-		File file = new File("ranklist.txt");
+		File file = new File("rankinglist.txt");
 		University[] uni = new University[10];
+		for(int i=0;i<10;i++) {
+			uni[i] = new University();
+		}
+		
+		try {
+			Scanner sc = new Scanner(file);
+			
+			while (sc.hasNextLine()) {
+				for(int i=0;i<40;i++) {
+				text = sc.nextLine();
+				count++;
+				if(count%4==2) {
+					uni[i/4].setName(text);
+				}else if(count%4==3) {
+					uni[i/4].setCountry(text);
+				}else if(count%4==0) {
+					uni[i/4].setCost(Integer.parseInt(text));
+				}else if(count%4==1) {
+					uni[i/4].setRankingNum(Integer.parseInt(text));
+				}
+			}
+			}
+			sc.close();
+		} catch (FileNotFoundException e) {
+			try {
+				file.createNewFile();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		CostComparator costc = new CostComparator();
+		CountryComparator countryc = new CountryComparator();
+		RankNumComparator rnc = new RankNumComparator();
 		
 		
 		JFrame frame = new JFrame("University Ranking");  
@@ -47,127 +84,23 @@ public class Main{
 	                                                   
 	    frame.setLocationRelativeTo(null);             
 	    
-		 JLabel name = new JLabel("");
-		    name.setBounds(360,120,150,20);
-		    frame.getContentPane().add(name);
+		JLabel name = new JLabel(uni[0].getName());
+	    name.setBounds(360,120,300,20);
+	    frame.getContentPane().add(name);
 		    
-		    JLabel rankNum = new JLabel("");
-		    rankNum.setBounds(420,170,150,20);
-		    frame.getContentPane().add(rankNum);
+	    JLabel rankNum = new JLabel(""+uni[0].getRankingNum());
+	    rankNum.setBounds(420,170,150,20);
+	    frame.getContentPane().add(rankNum);
 		    
-		    JLabel country = new JLabel("");
-		    country.setBounds(380,220,150,20);
-		    frame.getContentPane().add(country);
+	    JLabel country = new JLabel(uni[0].getCountry());
+	    country.setBounds(380,220,150,20);
+	    frame.getContentPane().add(country);
 		    
-		    JLabel cost = new JLabel("");
-		    cost.setBounds(360,270,150,20);
-		    frame.getContentPane().add(cost);
-		    
-//		for(int i=0; i<40;i++){
-//			myReader.nextLine();
-//			count++;
-//			if(count%4 == 0){
-//				uni[i].setCost();
-//			}else if(count%4 == 1){
-//				uni[i].setRankingNum();
-//			}else if(count%4== 2){
-//				uni[i].setName();
-//				
-//			}else{
-//				uni[i].setCountry();
-//			}
-//		}
-//		
+	    JLabel cost = new JLabel(""+uni[0].getCost());
+	    cost.setBounds(360,270,150,20);
+		frame.getContentPane().add(cost);
 		
-		for(int i=0; i<40;i++){
-		 try {
-	    	    Scanner myReader= new Scanner(file);
-	    	    myReader.nextLine();
-	    	    count++;
-	    	    
-	    	    for(int j=0; j<uni.length; j++) {
-	    			uni[i]=new University();
-	           
-	                uni[i].setRankingNum(i+1);
-	                
-	                text = myReader.nextLine();
-	                text = myReader.nextLine();
-	                
-	                uni[i].setName(text);
-	                
-	                text = myReader.nextLine() ;
-	                
-	                uni[i].setCountry(text);
-	                
-	                text = myReader.nextLine() ;
-	                
-	                name.setText(uni[i].getName());
-	                rankNum.setText("" +uni[i].getRankingNum());
-	                country.setText(uni[i].getCountry());
-	                
-	      //          uni[i].setCost(Integer.parseInt(text));
-	                
-	                System.out.println(uni[i].toString());
-	    	    }
-//	            myReader.close();
-	        } catch (FileNotFoundException e) {
-	            try {
-	                file.createNewFile();
-	            } catch (IOException e1) {
-	                // TODO Auto-generated catch block
-	                e1.printStackTrace();
-	            }
-			
-	        }
-		}
-		
-		
-	   
-		
-		
-//		String text = "";
-		
-		
-		//University[] uni = new University[10];
-		
-		
-//			
-//        try {
-//    	    Scanner myReader= new Scanner(file);
-//    	    for(int i=0; i<uni.length; i++) {
-//    			uni[i]=new University();
-//           
-//                uni[i].setRankingNum(i+1);
-//                
-//                text = myReader.nextLine();
-//                text = myReader.nextLine();
-//                
-//                uni[i].setName(text);
-//                
-//                text = myReader.nextLine() ;
-//                
-//                uni[i].setCountry(text);
-//                
-//                text = myReader.nextLine() ;
-//                
-//                name.setText(uni[i].getName());
-//                rankNum.setText("" +uni[i].getRankingNum());
-//                country.setText(uni[i].getCountry());
-//                
-//      //          uni[i].setCost(Integer.parseInt(text));
-//                
-//                System.out.println(uni[i].toString());
-//    	    }
-////            myReader.close();
-//        } catch (FileNotFoundException e) {
-//            try {
-//                file.createNewFile();
-//            } catch (IOException e1) {
-//                // TODO Auto-generated catch block
-//                e1.printStackTrace();
-//            }
-//		
-//        }
+
        
 
 	    JLabel lbl = new JLabel("Name: ");
@@ -201,6 +134,10 @@ public class Main{
 	    opinion.setBounds(330, 270, 250, 20);
 	    frame.getContentPane().add(opinion);
 	    
+	    
+	    
+	    
+	    
 	    JButton prevBtn = new JButton("Previous");  
 	    prevBtn.setBounds(100, 50, 110, 40);
 	    Color lightYellow = new Color(255,255,204);    
@@ -210,7 +147,20 @@ public class Main{
 	    frame.getContentPane().add(prevBtn);
 	    prevBtn.addActionListener(new ActionListener(){        
 	    	public void actionPerformed(ActionEvent e){  
-	    	
+	    		String currUni = rankNum.getText();
+	    		for(int i=0;i<10;i++) {
+	    			if(uni[i].getRankingNum()==Integer.parseInt(currUni)) {
+	    				try {
+	    				isTherePrevious(i);
+	    				name.setText(uni[i-1].getName());
+	    				rankNum.setText(""+uni[i-1].getRankingNum());
+	    				country.setText(uni[i-1].getCountry());
+	    				cost.setText(""+uni[i-1].getCost());
+	    				}catch (NoPrevOrNextExc ex) {
+	    					JOptionPane.showMessageDialog(frame, ex);
+	    				}
+	    			}
+	    		}
 	        }  
 	    }); 
 		
@@ -221,7 +171,20 @@ public class Main{
 	    frame.getContentPane().add(nextBtn);
 	    nextBtn.addActionListener(new ActionListener(){  
 	    	public void actionPerformed(ActionEvent e){  
-	    		
+	    		String currUni = rankNum.getText();
+	    		for(int i=0;i<10;i++) {
+	    			if(uni[i].getRankingNum()==Integer.parseInt(currUni)) {
+	    				try {
+	    				isThereNext(i);
+	    				name.setText(uni[i+1].getName());
+	    				rankNum.setText(""+uni[i+1].getRankingNum());
+	    				country.setText(uni[i+1].getCountry());
+	    				cost.setText(""+uni[i+1].getCost());
+	    				}catch(NoPrevOrNextExc ex) {
+	    					JOptionPane.showMessageDialog(frame, ex);
+	    				}
+	    			}
+	    		}
 	        }  
 	    }); 
 	    
@@ -246,7 +209,11 @@ public class Main{
 	    frame.getContentPane().add(numSort);
 	    numSort.addActionListener(new ActionListener(){  
 	    	public void actionPerformed(ActionEvent e){  
-	    
+	    		MergeSort.mergeSort(uni, rnc);
+	    		name.setText(uni[0].getName());
+				rankNum.setText(""+uni[0].getRankingNum());
+				country.setText(uni[0].getCountry());
+				cost.setText(""+uni[0].getCost());
 	    		}});
 	    
 	    JButton unSort = new JButton("Sort by country");  
@@ -256,7 +223,11 @@ public class Main{
 	    frame.getContentPane().add(unSort);
 	    unSort.addActionListener(new ActionListener(){        
 	    	public void actionPerformed(ActionEvent e){
-	    		
+	    		MergeSort.mergeSort(uni, countryc);
+	    		name.setText(uni[0].getName());
+				rankNum.setText(""+uni[0].getRankingNum());
+				country.setText(uni[0].getCountry());
+				cost.setText(""+uni[0].getCost());
 	    	}
 	    });
 	    
@@ -267,7 +238,11 @@ public class Main{
 	    frame.getContentPane().add(areaSort);
 	    areaSort.addActionListener(new ActionListener(){        
 	    	public void actionPerformed(ActionEvent e){
-			
+	    		MergeSort.mergeSort(uni, costc);
+	    		name.setText(uni[0].getName());
+				rankNum.setText(""+uni[0].getRankingNum());
+				country.setText(uni[0].getCountry());
+				cost.setText(""+uni[0].getCost());
 	    	}
 	    });
 	    
@@ -283,22 +258,23 @@ public class Main{
 	    	}
 	    });
 	    
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	 //   Picture pic = new Picture("University ranking.png",0,0,850,600,frame);  //chrez suzdadeniq ot men klas Picture 
-	  //  pic.addImage();                                                 
-		
+	    Picture pic = new Picture("University ranking.png",0,0,850,600,frame);  //chrez suzdadeniq ot men klas Picture 
+	    pic.addImage(); 
 		
 	    frame.setVisible(true);
 		
+	    
 		
+	}
+	
+	public static void isTherePrevious(int i) throws NoPrevOrNextExc {
+		if(i<=0) {
+			throw new NoPrevOrNextExc("\nThis is the first university");
+		}
+	}
+	public static void isThereNext(int i) throws NoPrevOrNextExc {
+		if(i>=9) {
+			throw new NoPrevOrNextExc("\nThis is the last university");
+		}
 	}
 	}
